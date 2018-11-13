@@ -8,10 +8,10 @@ export class ManagementApi {
     auth0: ManagementClient;
     constructor() {
         this.auth0 = new Client({
-            domain: "[domain]",
+            domain: "[domain].auth0.com",
             clientId: "[client id]",
             clientSecret: "[client secret]",
-            audience: "[audience]"
+            audience: "https://[domain].auth0.com/api/v2/"
         });
     }
     getUsers() {
@@ -106,6 +106,17 @@ export class ManagementApi {
 
     createConnection(input: any) {
         return this.auth0.createConnection(input).then(res => {
+            return res;
+        });
+    }
+
+    linkUserAccount(id: string, input: any) {
+        return this.auth0.linkUsers(id, input).then(res => {
+            return res;
+        });
+    }
+    createPasswordChangeTicket(input: any) {
+        return this.auth0.createPasswordChangeTicket(input).then(res => {
             return res;
         });
     }

@@ -11,6 +11,9 @@ const user_1 = require("./mutations/user");
 const ResourceServer_1 = require("./types/ResourceServer");
 const ResourceServer_2 = require("./mutations/ResourceServer");
 const Connection_2 = require("./mutations/Connection");
+const LinkUser_1 = require("./mutations/LinkUser");
+const Jobs_1 = require("./mutations/Jobs");
+const Ticket_1 = require("./types/Ticket");
 exports.pubsub = new graphql_subscriptions_1.PubSub();
 const api = new Data_1.ManagementApi();
 const RootQueryType = new graphql_1.GraphQLObjectType({
@@ -32,7 +35,7 @@ const RootQueryType = new graphql_1.GraphQLObjectType({
                 email: { type: new graphql_1.GraphQLNonNull(graphql_1.GraphQLString) }
             },
             resolve: (obj, args, ctx) => {
-                return api.getUserByEmail(args.email);
+                return api.getUserByEmail(args.email.toLowerCase());
             }
         },
         UsersAll: {
@@ -124,10 +127,20 @@ const RootMutationType = new graphql_1.GraphQLObjectType({
         DeleteUser: {
             type: graphql_1.GraphQLString,
             args: {
-                id: { type: new graphql_1.GraphQLNonNull(graphql_1.GraphQLID) },
+                id: { type: new graphql_1.GraphQLNonNull(graphql_1.GraphQLID) }
             },
             resolve: (obj, args, ctx) => {
                 return api.deleteUser(args.id);
+            }
+        },
+        LinkUserAccounts: {
+            type: LinkUser_1.LinkUserType,
+            args: {
+                id: { type: new graphql_1.GraphQLNonNull(graphql_1.GraphQLID) },
+                input: { type: new graphql_1.GraphQLNonNull(LinkUser_1.LinkUserInputType) }
+            },
+            resolve: (obj, args, ctx) => {
+                return api.linkUserAccount(args.id, args.input);
             }
         },
         CreateResourceServer: {
@@ -146,6 +159,15 @@ const RootMutationType = new graphql_1.GraphQLObjectType({
             },
             resolve: (obj, args, ctx) => {
                 return api.createConnection(args.input);
+            }
+        },
+        CreatePaswordChangeTicket: {
+            type: Ticket_1.PasswordChangeTicketType,
+            args: {
+                input: { type: new graphql_1.GraphQLNonNull(Jobs_1.CreatePasswordChangeTicketInputType) }
+            },
+            resolve: (obj, args, ctx) => {
+                return api.createPasswordChangeTicket(args.input);
             }
         }
     }

@@ -10,6 +10,9 @@ import { UserUpdateInputType, UserCreateInputType } from "./mutations/user";
 import { ResourceServerType } from "./types/ResourceServer";
 import { ResourceServerInputType } from "./mutations/ResourceServer";
 import { ConnectionInputType } from "./mutations/Connection";
+import { LinkUserInputType, LinkUserType } from "./mutations/LinkUser";
+import {  CreatePasswordChangeTicketInputType } from "./mutations/Jobs";
+import { PasswordChangeTicketType } from "./types/Ticket";
 
 export const pubsub = new PubSub();
 
@@ -36,7 +39,7 @@ const RootQueryType = new GraphQLObjectType({
                 email: { type: new GraphQLNonNull(GraphQLString) }
             },
             resolve: (obj, args, ctx) => {
-                return api.getUserByEmail(args.email);
+                return api.getUserByEmail(args.email.toLowerCase());
             }
         },
 
@@ -46,6 +49,7 @@ const RootQueryType = new GraphQLObjectType({
                 return api.getUsers();
             }
         },
+
         GetAllGrants: {
             type: new GraphQLList(GrantType),
             resolve: () => {
@@ -130,11 +134,21 @@ const RootMutationType = new GraphQLObjectType({
         DeleteUser: {
             type: GraphQLString,
             args: {
-                id: { type: new GraphQLNonNull(GraphQLID) },
+                id: { type: new GraphQLNonNull(GraphQLID) }
 
             },
             resolve: (obj, args, ctx) => {
                 return api.deleteUser(args.id);
+            }
+        },
+        LinkUserAccounts: {
+            type: LinkUserType,
+            args: {
+                id: { type: new GraphQLNonNull(GraphQLID) },
+                input: { type: new GraphQLNonNull(LinkUserInputType) }
+            },
+            resolve: (obj, args, ctx) => {
+                return api.linkUserAccount(args.id, args.input);
             }
         },
         CreateResourceServer: {
@@ -152,7 +166,17 @@ const RootMutationType = new GraphQLObjectType({
                 input: { type: new GraphQLNonNull(ConnectionInputType) }
             },
             resolve: (obj, args, ctx) => {
-               return api.createConnection(args.input);
+                return api.createConnection(args.input);
+            }
+        },
+
+        CreatePaswordChangeTicket: {
+            type: PasswordChangeTicketType,
+            args: {
+                input: { type: new GraphQLNonNull(CreatePasswordChangeTicketInputType) }
+            },
+            resolve: (obj, args, ctx) => {
+                return api.createPasswordChangeTicket(args.input);
             }
         }
     }

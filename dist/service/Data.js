@@ -4,10 +4,10 @@ const Client = require("auth0").ManagementClient;
 class ManagementApi {
     constructor() {
         this.auth0 = new Client({
-            domain: "tanver.au.auth0.com",
-            clientId: "yLnXYPVw6Im8Y3RyQeMvA82mF8Fl4EAL",
-            clientSecret: "N0p0uAhNZSz_3jG6NsnzJGn8IuA1p8xIgtxsCmxZJkZC4gqO23UyXHf0UGp2c3_i",
-            audience: "https://tanver.au.auth0.com/api/v2/"
+            domain: "[domain].auth0.com",
+            clientId: "[client id]",
+            clientSecret: "[client secret]",
+            audience: "https://[domain].auth0.com/api/v2/"
         });
     }
     getUsers() {
@@ -98,6 +98,16 @@ class ManagementApi {
     }
     createConnection(input) {
         return this.auth0.createConnection(input).then(res => {
+            return res;
+        });
+    }
+    linkUserAccount(id, input) {
+        return this.auth0.linkUsers(id, input).then(res => {
+            return res;
+        });
+    }
+    createPasswordChangeTicket(input) {
+        return this.auth0.createPasswordChangeTicket(input).then(res => {
             return res;
         });
     }
