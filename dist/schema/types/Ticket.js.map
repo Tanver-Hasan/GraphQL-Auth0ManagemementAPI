@@ -1,0 +1,1 @@
+{"version":3,"file":"Ticket.js","sourceRoot":"","sources":["../../../src/schema/types/Ticket.ts"],"names":[],"mappings":";;AAAA,qCAAoG;AAEvF,QAAA,wBAAwB,GAAG,IAAI,2BAAiB,CAAC;IAC1D,IAAI,EAAE,0BAA0B;IAChC,MAAM,EAAE;QACJ,QAAQ,EAAE,EAAE,IAAI,EAAE,uBAAa,EAAC;KACnC;CACJ,CAAC,CAAC"}
