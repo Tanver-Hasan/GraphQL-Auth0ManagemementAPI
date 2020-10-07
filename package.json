@@ -54,7 +54,7 @@
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
     "subscriptions-transport-ws": "^0.9.14",
-    "winston": "^2.4.0"
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "@types/async": "^2.0.45",
