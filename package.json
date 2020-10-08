@@ -59,7 +59,7 @@
   "devDependencies": {
     "@types/async": "^2.0.45",
     "@types/auth0": "^2.9.4",
-    "@types/bcrypt-nodejs": "^0.0.30",
+    "@types/bcrypt-nodejs": "^0.0.31",
     "@types/bluebird": "^3.5.20",
     "@types/body-parser": "^1.16.8",
     "@types/compression": "^0.0.35",
