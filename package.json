@@ -57,7 +57,7 @@
     "winston": "^2.4.0"
   },
   "devDependencies": {
-    "@types/async": "^2.0.45",
+    "@types/async": "^3.2.7",
     "@types/auth0": "^2.9.4",
     "@types/bcrypt-nodejs": "^0.0.30",
     "@types/bluebird": "^3.5.20",
